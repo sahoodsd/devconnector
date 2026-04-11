@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://sahood123:sahood123@cluster1.uinljda.mongodb.net/?appName=Cluster1;",
+  "mongoURI": "mongodb+srv://sahoodkk:sahoodkk123@cluster1.uinljda.mongodb.net/?appName=Cluster1",
   "jwtSecret" : "mysecrettoken"
 }
