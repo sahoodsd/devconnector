@@ -1,6 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
-const Register = () => {
+
+const Register = ({setAlert , register}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -8,20 +13,19 @@ const Register = () => {
     password2: '',
   });
 
-  const {name, email, password, password2} = formData;
+  const { name, email, password, password2 } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if(password !== password2){
-      console.log('Passwords not matched..');
+    if (password !== password2) {
+      setAlert('Passwords not matched', 'danger');
+    } else {
+      register({name,email,password});
     }
-    else{
-      console.log('Register fromData:..',formData);
-    }
-  }
+  };
 
   return (
     <Fragment>
@@ -36,7 +40,6 @@ const Register = () => {
             placeholder="Name"
             name="name"
             value={name}
-            required
             onChange={onChange}
           />
         </div>
@@ -59,7 +62,6 @@ const Register = () => {
             placeholder="Password"
             name="password"
             value={password}
-            minLength="6"
             onChange={onChange}
           />
         </div>
@@ -69,7 +71,6 @@ const Register = () => {
             placeholder="Confirm Password"
             name="password2"
             value={password2}
-            minLength="6"
             onChange={onChange}
           />
         </div>
@@ -81,4 +82,11 @@ const Register = () => {
     </Fragment>
   );
 };
-export default Register;
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+
+};
+
+export default connect(null, { setAlert , register })(Register);
