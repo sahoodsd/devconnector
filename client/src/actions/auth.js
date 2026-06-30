@@ -7,6 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from '../actions/types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -73,13 +74,10 @@ export const login = (email, password) => async (dispatch) => {
     },
   };
 
-
   const body = JSON.stringify({ email, password });
 
   try {
     const res = await axios.post('/api/auth', body, config);
-
-    console.log(res);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -101,4 +99,8 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
 };
